@@ -2,9 +2,9 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = 'your-dockerhub-username/my-python-app'
-        DOCKER_CRED_ID = 'docker-credentials-id' // ID of your DockerHub credentials in Jenkins
-        SONAR_SERVER = 'SonarQube'
+        DOCKER_IMAGE = 'sathya10dock/my-python-app'
+        DOCKER_CRED_ID = 'dockerhub-token' // ID of your DockerHub credentials in Jenkins
+        SONAR_SERVER = 'sonarserver'
     }
     
     stages {
