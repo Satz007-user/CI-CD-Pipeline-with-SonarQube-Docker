@@ -1,6 +1,4 @@
-FROM python:3.9-slim
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY . /app
-RUN pip install flask pytest
-EXPOSE 5000
-CMD ["python", "app.py"]
+COPY target/App.class .
+ENTRYPOINT ["java", "App"]
