@@ -16,9 +16,9 @@ pipeline {
         
         stage('Build & Test') {
             steps {
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
+                bat '''
+                    python -m venv venv
+                    call venv\\Scripts\\activate.bat
                     pip install flask pytest
                     pytest test_app.py
                 '''
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv("${SONAR_SERVER}") {
-                        sh 'sonar-scanner'
+                        bat 'sonar-scanner'
                     }
                 }
             }
@@ -62,9 +62,9 @@ pipeline {
         
         stage('Deploy Locally') {
             steps {
-                sh """
-                    docker stop my-running-app || true
-                    docker rm my-running-app || true
+                bat """
+                    docker stop my-running-app || exit 0
+                    docker rm my-running-app || exit 0
                     docker run -d --name my-running-app -p 5000:5000 ${DOCKER_IMAGE}:latest
                 """
             }
