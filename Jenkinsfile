@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = 'sathya10dock/my-python-app'
+        DOCKER_IMAGE = 'sathya10dock/my-java-app'
         DOCKER_CRED_ID = 'dockerhub-token'
         SONAR_SERVER = 'sonarserver'
     }
@@ -17,10 +17,9 @@ pipeline {
         stage('Build & Test') {
             steps {
                 bat '''
-                    python -m venv venv
-                    call venv\\Scripts\\activate.bat
-                    pip install flask pytest
-                    pytest test_app.py
+                    if not exist target mkdir target
+                    javac -d target App.java
+                    java -cp target App
                 '''
             }
         }
@@ -65,7 +64,7 @@ pipeline {
                 bat """
                     docker stop my-running-app || exit 0
                     docker rm my-running-app || exit 0
-                    docker run -d --name my-running-app -p 5000:5000 ${DOCKER_IMAGE}:latest
+                    docker run -d --name my-running-app ${DOCKER_IMAGE}:latest
                 """
             }
         }
