@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKER_IMAGE = 'sathya10dock/my-python-app'
-        DOCKER_CRED_ID = 'dockerhub-token' // ID of your DockerHub credentials in Jenkins
+        DOCKER_CRED_ID = 'dockerhub-token'
         SONAR_SERVER = 'sonarserver'
     }
     
@@ -62,11 +62,11 @@ pipeline {
         
         stage('Deploy Locally') {
             steps {
-                sh '''
+                sh """
                     docker stop my-running-app || true
                     docker rm my-running-app || true
                     docker run -d --name my-running-app -p 5000:5000 ${DOCKER_IMAGE}:latest
-                '''
+                """
             }
         }
     }
