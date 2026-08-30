@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = 'sathya10dock/my-java-app'
         DOCKER_CRED_ID = 'dockerhub-token'
         SONAR_SERVER = 'sonarserver'
-        DOCKER_CONTEXT = 'default'
+        DOCKER_HOST = 'tcp://localhost:2375'
     }
     
     stages {
